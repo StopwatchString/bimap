@@ -4,3 +4,5 @@ bimap.iml
 .idea/modules.xml
 .idea/misc.xml
 .idea/.gitignore
+out/production/bimap/BiMap.class
+out/production/bimap/main.class
