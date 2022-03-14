@@ -22,14 +22,17 @@ public class BiMap<T, S> {
         map2 = new HashMap(initialCapacity, loadFactor);
     }
 
-    //public BiMap(Map<? extends K,? extends V> m) {}
+    public BiMap(Map<? extends T,? extends S> m) {
+        map1.putAll(m);
+        for (Map.Entry<T, S> p : map1.entrySet()) {
+            map2.put(p.getValue(), p.getKey());
+        }
+    }
 
     public void clear() {
         map1.clear();
         map2.clear();
     }
-
-    //public Object clone() {}
 
     public boolean containsKeyType1(T key) {
         return map1.containsKey(key);
