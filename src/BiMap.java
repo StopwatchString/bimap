@@ -31,12 +31,20 @@ public class BiMap<T, S> {
 
     //public Object clone() {}
 
-    public boolean containsType1(T element) {
-        return map1.containsKey(element);
+    public boolean containsKeyType1(T key) {
+        return map1.containsKey(key);
     }
 
-    public boolean containsType2(S element) {
-        return map2.containsKey(element);
+    public boolean containsKeyType2(S key) {
+        return map2.containsKey(key);
+    }
+
+    public boolean containsValueType1(S value) {
+        return map1.containsValue(value);
+    }
+
+    public boolean containsValueType2(T value) {
+        return map2.containsValue(value);
     }
 
     //public Set<Map.Entry<K,V>> entrySet() {}
