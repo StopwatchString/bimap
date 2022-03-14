@@ -9,28 +9,36 @@ public class BiMap<K, V> {
     private HashMap<K, V> map1;
     private HashMap<V, K> map2;
 
+    //rebuilds the 2nd map based on the first map
+    private void parityRebuild() {
+        map2.clear();
+        for (Map.Entry<K,V> p : map1.entrySet()) {
+            map2.put(p.getValue(), p.getKey());
+        }
+    }
+
     private BiMap(HashMap<K, V> map1, HashMap<V, K> map2) {
         this.map1 = map1;
         this.map2 = map2;
     }
 
     public BiMap() {
-        map1 = new HashMap();
-        map2 = new HashMap();
+        map1 = new HashMap<>();
+        map2 = new HashMap<>();
     }
 
     public BiMap(int initialCapacity) {
-        map1 = new HashMap(initialCapacity);
-        map2 = new HashMap(initialCapacity);
+        map1 = new HashMap<>(initialCapacity);
+        map2 = new HashMap<>(initialCapacity);
     }
 
     public BiMap(int initialCapacity, float loadFactor) {
-        map1 = new HashMap(initialCapacity, loadFactor);
-        map2 = new HashMap(initialCapacity, loadFactor);
+        map1 = new HashMap<>(initialCapacity, loadFactor);
+        map2 = new HashMap<>(initialCapacity, loadFactor);
     }
 
     public BiMap(Map<? extends K,? extends V> m) {
-        map1.putAll(m);
+        map1 = new HashMap<>(m);
         for (Map.Entry<K, V> p : map1.entrySet()) {
             map2.put(p.getValue(), p.getKey());
         }
@@ -78,15 +86,18 @@ public class BiMap<K, V> {
         return map1.keySet();
     }
 
-//    public V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction) {
-//        return map1.merge(key, value, remappingFunction);
-//    }
+    public V merge(K key, V value, BiFunction<? super V,? super V,? extends V> remappingFunction) {
+        V element = map1.merge(key, value, remappingFunction);
+        parityRebuild();
+        return element;
+    }
 
     public V put(K key, V value) {
         map2.put(value, key);
         return map1.put(key, value);
     }
 
+    //wrong
     public void putAll(Map<? extends K,? extends V> m) {
         map1.putAll(m);
         for (Map.Entry<K, V> p : map1.entrySet()) {
@@ -124,7 +135,10 @@ public class BiMap<K, V> {
         }
     }
 
-    //public void replaceAll(BiFunction<? super T,? super S,? extends S> function)
+    public void replaceAll(BiFunction<? super K,? super V,? extends V> function) {
+        map1.replaceAll(function);
+        parityRebuild();
+    }
 
     public int size() {
         return map1.size();
