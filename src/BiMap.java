@@ -50,7 +50,13 @@ public class BiMap<T, S> {
         return map2.containsValue(value);
     }
 
-    //public Set<Map.Entry<K,V>> entrySet() {}
+    public Set<Map.Entry<T,S>> entrySetType1() {
+        return map1.entrySet();
+    }
+
+    public Set<Map.Entry<S,T>> entrySetType2() {
+        return map2.entrySet();
+    }
 
     //public void forEach(BiConsumer<? super K,? super V> action) {}
 
