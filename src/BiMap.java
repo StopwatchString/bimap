@@ -97,11 +97,14 @@ public class BiMap<K, V> {
         return map1.put(key, value);
     }
 
-    //wrong
     public void putAll(Map<? extends K,? extends V> m) {
         map1.putAll(m);
-        for (Map.Entry<K, V> p : map1.entrySet()) {
-            map2.put(p.getValue(), p.getKey());
+        for (Map.Entry<? extends K, ? extends V> p : m.entrySet()) {
+            if (map2.containsKey(p.getValue())) {
+                map2.replace(p.getValue(), p.getKey());
+            } else {
+                map2.put(p.getValue(), p.getKey());
+            }
         }
     }
 

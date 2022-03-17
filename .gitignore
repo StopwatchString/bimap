@@ -6,3 +6,4 @@ bimap.iml
 .idea/.gitignore
 out/production/bimap/BiMap.class
 out/production/bimap/main.class
+.idea/workspace.xml
